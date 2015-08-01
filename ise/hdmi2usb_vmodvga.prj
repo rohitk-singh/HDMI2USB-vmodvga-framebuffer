@@ -1,0 +1,8 @@
+verilog work "../hdl/dvi-d/DRAM16XN.v"
+verilog work "../hdl/dvi-d/serdes_n_to_1.v"
+verilog work "../hdl/dvi-d/encode.v"
+verilog work "../hdl/dvi-d/convert_30to15_fifo.v"
+verilog work "../hdl/dvi-d/dvi_encoder_top.v"
+vhdl work "../hdl/vga_pattern.vhd"
+vhdl work "../hdl/vga2dvi.vhd"
+vhdl work "../hdl/hdmi2usb-vmodvga.vhd"
