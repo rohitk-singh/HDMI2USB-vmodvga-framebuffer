@@ -132,7 +132,7 @@ begin
 			rgb_q <= FIFO_dout(23 downto 0);
 			
 			if counterX < hvisible and counterY < vVisible then
-				de <= '1';
+				de <= '1'; 
 			else 
 				de <= '0';
 			end if;

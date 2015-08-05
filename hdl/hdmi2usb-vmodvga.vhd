@@ -9,6 +9,9 @@ entity hdmi2usb_vmodvga is
 		clk              : in    std_logic;
 		rst              : in    std_logic;
 
+		-- LED ports
+		LED				 : out std_logic_vector(7 downto 0);
+
 		-- HDMI/DVI-D Port
 		tmds             : out   std_logic_vector(3 downto 0);
 		tmdsb            : out   std_logic_vector(3 downto 0);
@@ -246,7 +249,9 @@ begin
 	clk_reader <= clk_out;
 	clk_writer <= clk_out;
 	pclk       <= clk_out;
-
+	
+	LED <= memory_ready & memory_written & read_error & read_overflow & "0000";
+	
 	Inst_mem_reader_vga : mem_reader_vga
 		generic map(
 			hVisible    => hVisible,
