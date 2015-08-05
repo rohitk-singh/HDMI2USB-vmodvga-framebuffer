@@ -115,6 +115,10 @@
     <transform xil_pn:end_ts="1438787109" xil_pn:in_ck="-6298458654443036772" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1438787109">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="../hdl/ddr2_wrapper.vhd"/>
       <outfile xil_pn:name="../hdl/dvi-d/DRAM16XN.v"/>
       <outfile xil_pn:name="../hdl/dvi-d/convert_30to15_fifo.v"/>
@@ -227,7 +231,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1438784299" xil_pn:in_ck="-5917791413027015902" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="-1813405614005347855" xil_pn:start_ts="1438784221">
+    <transform xil_pn:end_ts="1438805505" xil_pn:in_ck="-5917791413027015902" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="-1813405614005347855" xil_pn:start_ts="1438805485">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -249,7 +253,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1438784353" xil_pn:in_ck="-6160995867034473380" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="172278185062225603" xil_pn:start_ts="1438784323">
+    <transform xil_pn:end_ts="1438805511" xil_pn:in_ck="-6160995867034473380" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="172278185062225603" xil_pn:start_ts="1438805505">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -259,11 +263,9 @@
       <outfile xil_pn:name="hdmi2usb_vmodvga.ngd"/>
       <outfile xil_pn:name="hdmi2usb_vmodvga_ngdbuild.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1438784582" xil_pn:in_ck="-8818015807114963429" xil_pn:name="TRANEXT_map_spartan6" xil_pn:prop_ck="4245753365082497697" xil_pn:start_ts="1438784353">
+    <transform xil_pn:end_ts="1438805573" xil_pn:in_ck="-8818015807114963429" xil_pn:name="TRANEXT_map_spartan6" xil_pn:prop_ck="4245753365082497697" xil_pn:start_ts="1438805511">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="_xmsgs/map.xmsgs"/>
       <outfile xil_pn:name="hdmi2usb_vmodvga.pcf"/>
       <outfile xil_pn:name="hdmi2usb_vmodvga_map.map"/>
@@ -274,7 +276,7 @@
       <outfile xil_pn:name="hdmi2usb_vmodvga_summary.xml"/>
       <outfile xil_pn:name="hdmi2usb_vmodvga_usage.xml"/>
     </transform>
-    <transform xil_pn:end_ts="1438784692" xil_pn:in_ck="7538142520769411764" xil_pn:name="TRANEXT_par_spartan6" xil_pn:prop_ck="-3829590541433901613" xil_pn:start_ts="1438784582">
+    <transform xil_pn:end_ts="1438805616" xil_pn:in_ck="7538142520769411764" xil_pn:name="TRANEXT_par_spartan6" xil_pn:prop_ck="-3829590541433901613" xil_pn:start_ts="1438805573">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -289,8 +291,9 @@
       <outfile xil_pn:name="hdmi2usb_vmodvga_pad.txt"/>
       <outfile xil_pn:name="hdmi2usb_vmodvga_par.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1438784753" xil_pn:in_ck="-6140555385359041644" xil_pn:name="TRANEXT_bitFile_spartan6" xil_pn:prop_ck="5341574683187206424" xil_pn:start_ts="1438784692">
+    <transform xil_pn:end_ts="1438805637" xil_pn:in_ck="-6140555385359041644" xil_pn:name="TRANEXT_bitFile_spartan6" xil_pn:prop_ck="5341574683187206424" xil_pn:start_ts="1438805616">
       <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="_xmsgs/bitgen.xmsgs"/>
       <outfile xil_pn:name="hdmi2usb_vmodvga.bgn"/>
@@ -351,7 +354,7 @@
       <status xil_pn:value="OutputChanged"/>
       <status xil_pn:value="OutputRemoved"/>
     </transform>
-    <transform xil_pn:end_ts="1438784692" xil_pn:in_ck="-8818015807114963561" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416185" xil_pn:start_ts="1438784662">
+    <transform xil_pn:end_ts="1438805616" xil_pn:in_ck="-8818015807114963561" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416185" xil_pn:start_ts="1438805609">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="_xmsgs/trce.xmsgs"/>

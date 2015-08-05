@@ -113,7 +113,6 @@ begin
 		elsif rising_edge(clk_reader) then
 			
 			read_cmd_enable_q <= '0';
-			de <= '1';
 			read_cmd_enable_q <= memory_ready and read_data_empty and read_cmd_empty;
 			
 			
@@ -121,6 +120,8 @@ begin
 				address <= address + 4 * 64; -- 4 bytes since 32-bit word, 64 since burst length is 64 words
 			end if;
 			
+            read_data_enable_q <= memory_ready and (not read_data_empty);
+            
 			if (FIFO_empty /= '1') and (counterX < hVisible) then
 				FIFO_rd_en <= '1';
 			else 
@@ -130,7 +131,9 @@ begin
 				
 			rgb_q <= FIFO_dout(23 downto 0);
 			
-			if counterX >= hvisible and counterY >= vVisible then
+			if counterX < hvisible and counterY < vVisible then
+				de <= '1';
+			else 
 				de <= '0';
 			end if;
 			
