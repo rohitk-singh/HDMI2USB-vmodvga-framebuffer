@@ -10,7 +10,7 @@ entity vga2dvi is
 
 		-- VGA input signals
 		pclk        : in  std_logic;
-		pclk_locked : in  std_logic;
+		--pclk_locked : in  std_logic;
 		hsync       : in  std_logic;
 		vsync       : in  std_logic;
 		de          : in  std_logic;
@@ -69,7 +69,7 @@ begin
 			LOCKED   => pll_lckd,
 			CLKFBIN  => clkfbout,
 			CLKIN    => pclk,
-			RST      => not pclk_locked);
+			RST      => rst); 
 
 	pclkbufg : BUFG port map(I => pllclk1, O => pclkx1);
 	pclkx2bufg : BUFG port map(I => pllclk2, O => pclkx2);
