@@ -81,6 +81,7 @@ architecture rtl of hdmi2usb_vmodvga is
 			vsync            : out std_logic;
 			rgb              : out std_logic_vector(23 downto 0);
 			de               : out std_logic;
+			led              : out std_logic_vector(7 downto 0);
 			read_cmd_enable  : out std_logic;
 			read_cmd_refresh : out std_logic;
 			read_cmd_address : out std_logic_vector(29 downto 0);
@@ -223,6 +224,7 @@ architecture rtl of hdmi2usb_vmodvga is
 	signal write_error       : std_logic;
 	signal write_underrun    : std_logic;
 	signal memory_written : std_logic;
+	signal leds : std_logic_vector(7 downto 0);
 
 begin
 	--	PCLK_GEN_INST : DCM_CLKGEN
@@ -250,7 +252,7 @@ begin
 	clk_writer <= clk_out;
 	pclk       <= clk_out;
 	
-	LED <= memory_ready & memory_written & read_error & read_overflow & "0000";
+	LED <= memory_ready & memory_written & read_error & read_overflow & leds(3 downto 0);
 	
 	Inst_mem_reader_vga : mem_reader_vga
 		generic map(
@@ -271,6 +273,7 @@ begin
 			vsync            => vsync,
 			rgb              => rgb,
 			de               => de,
+			led              => leds,
 			memory_ready     => memory_written, --memory_ready,
 			read_cmd_enable  => read_cmd_enable,
 			read_cmd_refresh => read_cmd_refresh,
