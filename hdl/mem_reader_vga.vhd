@@ -144,7 +144,7 @@ begin
 			
             read_data_enable_q <= memory_ready and (not read_data_empty);
             
-			if (FIFO_empty /= '1') and (counterX < hVisible) then
+			if (FIFO_empty /= '1') and (counterX < hVisible) and (counterX < vVisible) then
 				FIFO_rd_en <= '1';
 			else 
 				FIFO_rd_en <= '0';

@@ -56,21 +56,24 @@ process(clk)
          elsif x = 100 or y = 100 or x = hVisible -101 or y = vVisible - 101 then 
             write_data <= x"FFFFFFFF";
          else
-             write_data <= colour & colour & colour  & colour;
+         	--write_data <= colour & colour & colour  & colour;
+         	write_data <= x"000000FF";
          end if;
       
          if start_write = '1' then
             pending_write <= '1';
             pending_write_address <= std_logic_vector(address(21 downto 2) & "00");
             write_data_enable <= '1';
-            case address(1 downto 0) is
-               when "00"   => write_mask <= "1110";
-               when "01"   => write_mask <= "1101";
-               when "10"   => write_mask <= "1011";
-               when others => write_mask <= "0111";
-            end case;
+--            case address(1 downto 0) is
+--               when "00"   => write_mask <= "1110";
+--               when "01"   => write_mask <= "1101";
+--               when "10"   => write_mask <= "1011";
+--               when others => write_mask <= "0111";
+--            end case;
             
-            address <= address + 1;
+            write_mask <= "0000";
+            
+            address <= address + 4;
             if x = to_unsigned(hVisible-1,11) then
                x <= (others => '0');
                y <= y + 1;
