@@ -62,11 +62,11 @@ entity mem_reader_vga is
 end mem_reader_vga;
 
 architecture rtl of mem_reader_vga is
-	signal read_cmd_enable_q : std_logic;
-	signal read_data_enable_q : std_logic;
-	signal address           : std_logic_vector(29 downto 0);
-	signal counterX          : std_logic_vector(15 downto 0);
-	signal counterY          : std_logic_vector(15 downto 0);
+	signal read_cmd_enable_q : std_logic := '0';
+	signal read_data_enable_q : std_logic := '0';
+	signal address           : std_logic_vector(29 downto 0) := (others => '0');
+	signal counterX          : std_logic_vector(15 downto 0) := (others => '0');
+	signal counterY          : std_logic_vector(15 downto 0) := (others => '0');
 
 	component mem_FIFO
 		port(
@@ -85,18 +85,18 @@ architecture rtl of mem_reader_vga is
 			data_count   : out STD_LOGIC_VECTOR(5 downto 0)
 		);
 	end component;
-	signal FIFO_wr_en        : STD_LOGIC;
-	signal FIFO_rd_en        : STD_LOGIC;
-	signal FIFO_dout         : STD_LOGIC_VECTOR(31 downto 0);
-	signal FIFO_full         : STD_LOGIC;
-	signal FIFO_almost_full  : STD_LOGIC;
-	signal FIFO_overflow     : STD_LOGIC;
-	signal FIFO_empty        : STD_LOGIC;
-	signal FIFO_underflow    : STD_LOGIC;
-	signal FIFO_almost_empty : STD_LOGIC;
-	signal FIFO_data_count   : STD_LOGIC_VECTOR(5 downto 0);
-	signal ready_to_read_new_frame : std_logic;
-    signal rgb_q               : std_logic_vector(23 downto 0);
+	signal FIFO_wr_en        : STD_LOGIC := '0';
+	signal FIFO_rd_en        : STD_LOGIC := '0';
+	signal FIFO_dout         : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+	signal FIFO_full         : STD_LOGIC := '0';
+	signal FIFO_almost_full  : STD_LOGIC := '0';
+	signal FIFO_overflow     : STD_LOGIC := '0';
+	signal FIFO_empty        : STD_LOGIC := '0';
+	signal FIFO_underflow    : STD_LOGIC := '0';
+	signal FIFO_almost_empty : STD_LOGIC := '0';
+	signal FIFO_data_count   : STD_LOGIC_VECTOR(5 downto 0) := (others => '0');
+	signal ready_to_read_new_frame : std_logic := '0';
+    signal rgb_q               : std_logic_vector(23 downto 0) := (others => '0');
 begin
 	read_cmd_enable  <= read_cmd_enable_q;
 	read_cmd_address <= address;

@@ -40,17 +40,17 @@ architecture rtl of vga2dvi is
 			TMDSB        : out std_logic_vector(3 downto 0)
 		);
 	end component;
-	signal clkfbout     : std_logic;
-	signal pll_lckd     : std_logic;
-	signal pllclk0      : std_logic;
-	signal pllclk1      : std_logic;
-	signal pllclk2      : std_logic;
-	signal serdesstrobe : std_logic;
-	signal pclkx10      : std_logic;
-	signal bufpll_lock  : std_logic;
-	signal serdes_rst   : std_logic;
-	signal pclkx1       : std_logic;
-	signal pclkx2       : std_logic;
+	signal clkfbout     : std_logic  := '0';
+	signal pll_lckd     : std_logic := '0';
+	signal pllclk0      : std_logic := '0';
+	signal pllclk1      : std_logic := '0';
+	signal pllclk2      : std_logic := '0';
+	signal serdesstrobe : std_logic := '0';
+	signal pclkx10      : std_logic := '0';
+	signal bufpll_lock  : std_logic := '0';
+	signal serdes_rst   : std_logic := '0';
+	signal pclkx1       : std_logic := '0';
+	signal pclkx2       : std_logic := '0';
 
 begin
 	PLL_OSERDES : PLL_BASE

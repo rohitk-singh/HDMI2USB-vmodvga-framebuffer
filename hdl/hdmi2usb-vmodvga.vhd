@@ -5,12 +5,15 @@ library UNISIM;
 use UNISIM.vcomponents.all;
 
 entity hdmi2usb_vmodvga is
+	generic(
+		C3_SIMULATION : string := "FALSE"
+	);
 	port(
 		clk              : in    std_logic;
 		rst              : in    std_logic;
 
 		-- LED ports
-		LED				 : out std_logic_vector(7 downto 0);
+		LED              : out   std_logic_vector(7 downto 0);
 
 		-- HDMI/DVI-D Port
 		tmds             : out   std_logic_vector(3 downto 0);
@@ -105,7 +108,8 @@ architecture rtl of hdmi2usb_vmodvga is
 			write_cmd_address : out std_logic_vector(29 downto 0);
 			write_data_enable : out std_logic;
 			write_mask        : out std_logic_vector(3 downto 0);
-			write_data        : out std_logic_vector(31 downto 0)
+			write_data        : out std_logic_vector(31 downto 0);
+			rst               : in  std_logic
 		);
 	end component;
 	component vga2dvi
@@ -123,6 +127,9 @@ architecture rtl of hdmi2usb_vmodvga is
 	end component;
 
 	component ddr2_wrapper
+		generic(
+			C3_SIMULATION : string := "FALSE"
+		);
 		port(
 			clk_sys           : in    std_logic;
 			clk_writer        : in    std_logic;
@@ -175,56 +182,70 @@ architecture rtl of hdmi2usb_vmodvga is
 			pll_locked        : out   std_logic
 		);
 	end component;
-	-- Timings for 1280x720@60Hz, 75Mhz pixel clock
-	constant hVisible    : natural   := 1280;
-	constant hSyncStart  : natural   := 1352;
-	constant hSyncEnd    : natural   := 1432;
-	constant hMax        : natural   := 1647;
+--	-- Timings for 1280x720@60Hz, 75Mhz pixel clock
+--	constant hVisible    : natural   := 1280;
+--	constant hSyncStart  : natural   := 1352;
+--	constant hSyncEnd    : natural   := 1432;
+--	constant hMax        : natural   := 1647;
+--	constant hSyncActive : std_logic := '1';
+--
+--	constant vVisible    : natural                       := 720;
+--	constant vSyncStart  : natural                       := 723;
+--	constant vSyncEnd    : natural                       := 728;
+--	constant vMax        : natural                       := 750;
+--	constant vSyncActive : std_logic                     := '1';
+	
+	-- Timings for simulation
+	constant hVisible    : natural   := 64;
+	constant hSyncStart  : natural   := 64+2;
+	constant hSyncEnd    : natural   := 64+2+3;
+	constant hMax        : natural   := 64+2+3+4;
 	constant hSyncActive : std_logic := '1';
 
-	constant vVisible    : natural   := 720;
-	constant vSyncStart  : natural   := 723;
-	constant vSyncEnd    : natural   := 728;
-	constant vMax        : natural   := 750;
+	constant vVisible    : natural   := 64;
+	constant vSyncStart  : natural   := 64+2;
+	constant vSyncEnd    : natural   := 64+2+3;
+	constant vMax        : natural   := 64+2+3+4;
 	constant vSyncActive : std_logic := '1';
-	signal pclk          : std_logic;
-	signal rgb           : std_logic_vector(23 downto 0);
-	signal de            : std_logic;
-	signal vsync         : std_logic;
-	signal hsync         : std_logic;
-	signal pclk_locked   : std_logic;
+	
+	signal pclk          : std_logic                     := '0';
+	signal rgb           : std_logic_vector(23 downto 0) := (others => '0');
+	signal de            : std_logic                     := '0';
+	signal vsync         : std_logic                     := '0';
+	signal hsync         : std_logic                     := '0';
+	signal pclk_locked   : std_logic                     := '0';
 
-	signal clk_reader        : std_logic;
-	signal memory_ready      : std_logic;
-	signal read_cmd_enable   : std_logic;
-	signal read_cmd_refresh  : std_logic;
-	signal read_cmd_address  : std_logic_vector(29 downto 0);
-	signal read_cmd_full     : std_logic;
-	signal read_cmd_empty    : std_logic;
-	signal read_data_enable  : std_logic;
-	signal read_data         : std_logic_vector(31 downto 0);
-	signal read_data_empty   : std_logic;
-	signal read_data_full    : std_logic;
-	signal read_data_count   : std_logic_vector(6 downto 0);
-	signal clk_out           : std_logic;
-	signal clk_writer        : std_logic;
-	signal write_cmd_enable  : std_logic;
-	signal write_cmd_empty   : std_logic;
-	signal write_cmd_full    : std_logic;
-	signal write_cmd_address : std_logic_vector(29 downto 0);
-	signal write_data_enable : std_logic;
-	signal write_mask        : std_logic_vector(3 downto 0);
-	signal write_data_empty  : std_logic;
-	signal write_data        : std_logic_vector(31 downto 0);
-	signal write_data_full   : std_logic;
-	signal write_data_count  : std_logic_vector(6 downto 0);
-	signal pll_locked        : std_logic;
-	signal read_error        : std_logic;
-	signal read_overflow     : std_logic;
-	signal write_error       : std_logic;
-	signal write_underrun    : std_logic;
-	signal memory_written : std_logic;
-	signal leds : std_logic_vector(7 downto 0);
+	signal clk_reader        : std_logic                     := '0';
+	signal memory_ready      : std_logic                     := '0';
+	signal read_cmd_enable   : std_logic                     := '0';
+	signal read_cmd_refresh  : std_logic                     := '0';
+	signal read_cmd_address  : std_logic_vector(29 downto 0) := (others => '0');
+	signal read_cmd_full     : std_logic                     := '0';
+	signal read_cmd_empty    : std_logic                     := '0';
+	signal read_data_enable  : std_logic                     := '0';
+	signal read_data         : std_logic_vector(31 downto 0) := (others => '0');
+	signal read_data_empty   : std_logic                     := '0';
+	signal read_data_full    : std_logic                     := '0';
+	signal read_data_count   : std_logic_vector(6 downto 0)  := (others => '0');
+	signal clk_out           : std_logic                     := '0';
+	signal clk_writer        : std_logic                     := '0';
+	signal write_cmd_enable  : std_logic                     := '0';
+	signal write_cmd_empty   : std_logic                     := '0';
+	signal write_cmd_full    : std_logic                     := '0';
+	signal write_cmd_address : std_logic_vector(29 downto 0) := (others => '0');
+	signal write_data_enable : std_logic                     := '0';
+	signal write_mask        : std_logic_vector(3 downto 0)  := (others => '0');
+	signal write_data_empty  : std_logic                     := '0';
+	signal write_data        : std_logic_vector(31 downto 0) := (others => '0');
+	signal write_data_full   : std_logic                     := '0';
+	signal write_data_count  : std_logic_vector(6 downto 0)  := (others => '0');
+	signal pll_locked        : std_logic                     := '0';
+	signal read_error        : std_logic                     := '0';
+	signal read_overflow     : std_logic                     := '0';
+	signal write_error       : std_logic                     := '0';
+	signal write_underrun    : std_logic                     := '0';
+	signal memory_written    : std_logic                     := '0';
+	signal leds              : std_logic_vector(7 downto 0)  := (others => '0');
 
 begin
 	--	PCLK_GEN_INST : DCM_CLKGEN
@@ -251,9 +272,9 @@ begin
 	clk_reader <= clk_out;
 	clk_writer <= clk_out;
 	pclk       <= clk_out;
-	
+
 	LED <= memory_ready & memory_written & read_error & read_overflow & leds(3 downto 0);
-	
+
 	Inst_mem_reader_vga : mem_reader_vga
 		generic map(
 			hVisible    => hVisible,
@@ -287,25 +308,29 @@ begin
 			read_data_count  => read_data_count,
 			rst              => rst);
 
-	Inst_Test_pattern_writer : Test_pattern_writer generic map(
+	Inst_Test_pattern_writer : Test_pattern_writer 
+		generic map(
 			hVisible => hVisible,
 			vVisible => vVisible
-		) port map(
-			clk => clk_writer,
-			completed => memory_written,
-			memory_ready => memory_ready,
-			write_cmd_enable => write_cmd_enable,
+		)
+		port map(
+			clk               => clk_writer,
+			completed         => memory_written,
+			memory_ready      => memory_ready,
+			write_cmd_enable  => write_cmd_enable,
 			write_cmd_address => write_cmd_address,
-			write_cmd_empty => write_cmd_empty,
-			write_cmd_full => write_cmd_full,
-			write_data_empty => write_data_empty,
-			write_data_count => write_data_count,
+			write_cmd_empty   => write_cmd_empty,
+			write_cmd_full    => write_cmd_full,
+			write_data_empty  => write_data_empty,
+			write_data_count  => write_data_count,
 			write_data_enable => write_data_enable,
-			write_mask => write_mask,
-			write_data => write_data
+			write_mask        => write_mask,
+			write_data        => write_data,
+			rst               => rst
 		);
 
-	Inst_vga2dvi : vga2dvi port map(
+	Inst_vga2dvi : vga2dvi 
+		port map(
 			rst   => rst,
 			pclk  => pclk,
 			--pclk_locked => open,
@@ -316,7 +341,11 @@ begin
 			tmds  => tmds,
 			tmdsb => tmdsb
 		);
-	Inst_ddr2_wrapper : ddr2_wrapper port map(
+	Inst_ddr2_wrapper : ddr2_wrapper
+		generic map(
+			C3_SIMULATION => C3_SIMULATION
+		)
+		port map(
 			clk_sys           => clk,
 			c3_clk0           => clk_out,
 			clk_writer        => clk_writer,
