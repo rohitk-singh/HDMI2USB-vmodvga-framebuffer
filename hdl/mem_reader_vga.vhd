@@ -138,7 +138,7 @@ begin
 			read_cmd_enable_q <= memory_ready and read_data_empty and read_cmd_empty;
 			
 			
-			if read_cmd_enable_q <= '1' then
+			if read_cmd_enable_q = '1' then
 				address <= address + 4 * 64; -- 4 bytes since 32-bit word, 64 since burst length is 64 words
 			end if;
 			
