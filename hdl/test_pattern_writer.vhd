@@ -46,7 +46,7 @@ architecture rtl of Test_pattern_writer is
 
 begin
 	
-	write_data        <= std_logic_vector(data);
+	write_data        <= std_logic_vector(data); --x"00FF00FF";
 	write_cmd_address <= std_logic_vector(address);
 	write_mask        <= "0000";
 	write_cmd_enable  <= write_cmd_enable_q;

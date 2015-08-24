@@ -182,31 +182,32 @@ architecture rtl of hdmi2usb_vmodvga is
 			pll_locked        : out   std_logic
 		);
 	end component;
---	-- Timings for 1280x720@60Hz, 75Mhz pixel clock
---	constant hVisible    : natural   := 1280;
---	constant hSyncStart  : natural   := 1352;
---	constant hSyncEnd    : natural   := 1432;
---	constant hMax        : natural   := 1647;
---	constant hSyncActive : std_logic := '1';
---
---	constant vVisible    : natural                       := 720;
---	constant vSyncStart  : natural                       := 723;
---	constant vSyncEnd    : natural                       := 728;
---	constant vMax        : natural                       := 750;
---	constant vSyncActive : std_logic                     := '1';
 	
-	-- Timings for simulation
-	constant hVisible    : natural   := 64;
-	constant hSyncStart  : natural   := 64+2;
-	constant hSyncEnd    : natural   := 64+2+3;
-	constant hMax        : natural   := 64+2+3+4;
+	-- Timings for 1280x720@60Hz, 75Mhz pixel clock
+	constant hVisible    : natural   := 1280;
+	constant hSyncStart  : natural   := 1352;
+	constant hSyncEnd    : natural   := 1432;
+	constant hMax        : natural   := 1647;
 	constant hSyncActive : std_logic := '1';
 
-	constant vVisible    : natural   := 64;
-	constant vSyncStart  : natural   := 64+2;
-	constant vSyncEnd    : natural   := 64+2+3;
-	constant vMax        : natural   := 64+2+3+4;
+	constant vVisible    : natural   := 720;
+	constant vSyncStart  : natural   := 723;
+	constant vSyncEnd    : natural   := 728;
+	constant vMax        : natural   := 750;
 	constant vSyncActive : std_logic := '1';
+	
+--	-- Timings for simulation
+--	constant hVisible    : natural   := 32;
+--	constant hSyncStart  : natural   := 32+2;
+--	constant hSyncEnd    : natural   := 32+2+3;
+--	constant hMax        : natural   := 32+2+3+4;
+--	constant hSyncActive : std_logic := '1';
+--
+--	constant vVisible    : natural   := 32;
+--	constant vSyncStart  : natural   := 32+2;
+--	constant vSyncEnd    : natural   := 32+2+3;
+--	constant vMax        : natural   := 32+2+3+4;
+--	constant vSyncActive : std_logic := '1';
 	
 	signal pclk          : std_logic                     := '0';
 	signal rgb           : std_logic_vector(23 downto 0) := (others => '0');
