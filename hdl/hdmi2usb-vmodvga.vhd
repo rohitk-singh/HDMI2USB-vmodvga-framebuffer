@@ -184,29 +184,37 @@ architecture rtl of hdmi2usb_vmodvga is
 	end component;
 	
 	-- Timings for 1280x720@60Hz, 75Mhz pixel clock
+
+ 	constant hFront : natural := 72;
+ 	constant hSynch : natural := 80;
+ 	constant hBack  : natural := 216;
+ 	constant vFront : natural := 3;
+ 	constant vSynch : natural := 5;
+ 	constant vBack  : natural := 22;
+
 	constant hVisible    : natural   := 1280;
-	constant hSyncStart  : natural   := 1352;
-	constant hSyncEnd    : natural   := 1432;
-	constant hMax        : natural   := 1647;
+	constant hSyncStart  : natural   := hVisible + hFront; --1352;
+	constant hSyncEnd    : natural   := hVisible + hFront + hSynch; --1432;
+	constant hMax        : natural   := hVisible + hFront + hSynch + hBack - 1; --1647;
 	constant hSyncActive : std_logic := '1';
 
 	constant vVisible    : natural   := 720;
-	constant vSyncStart  : natural   := 723;
-	constant vSyncEnd    : natural   := 728;
-	constant vMax        : natural   := 750;
+	constant vSyncStart  : natural   := vVisible + vFront; --723;
+	constant vSyncEnd    : natural   := vVisible + vFront + vSynch; --728;
+	constant vMax        : natural   := vVisible + vFront + vSynch + vBack - 1; --749;
 	constant vSyncActive : std_logic := '1';
 	
 --	-- Timings for simulation
---	constant hVisible    : natural   := 32;
---	constant hSyncStart  : natural   := 32+2;
---	constant hSyncEnd    : natural   := 32+2+3;
---	constant hMax        : natural   := 32+2+3+4;
+--	constant hVisible    : natural   := 64;
+--	constant hSyncStart  : natural   := 64 + 2;
+--	constant hSyncEnd    : natural   := 64 + 2 + 3;
+--	constant hMax        : natural   := 64 + 2 + 3 + 4  - 1;
 --	constant hSyncActive : std_logic := '1';
 --
---	constant vVisible    : natural   := 32;
---	constant vSyncStart  : natural   := 32+2;
---	constant vSyncEnd    : natural   := 32+2+3;
---	constant vMax        : natural   := 32+2+3+4;
+--	constant vVisible    : natural   := 8 ;
+--	constant vSyncStart  : natural   := 8 + 2;
+--	constant vSyncEnd    : natural   := 8 + 2 + 3;
+--	constant vMax        : natural   := 8 + 2 + 3 + 4  - 1;
 --	constant vSyncActive : std_logic := '1';
 	
 	signal pclk          : std_logic                     := '0';

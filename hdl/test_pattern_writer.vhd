@@ -60,6 +60,7 @@ begin
 			address   <= (others => '0');
 			state     <= RESET_STATE;
 			completed <= '0';
+			data      <= (others => '0');
 
 		elsif rising_edge(clk) then
 			case state is

@@ -213,7 +213,7 @@ begin
 			c3_p3_cmd_clk       => clk_reader,
 			c3_p3_cmd_en        => read_cmd_enable,
 			c3_p3_cmd_instr     => "001", -- read
-			c3_p3_cmd_bl        => "111111", -- 64 words,
+			c3_p3_cmd_bl        => "011111", -- 32 words,
 			c3_p3_cmd_byte_addr => read_cmd_address,
 			c3_p3_cmd_empty     => read_cmd_empty,
 			c3_p3_cmd_full      => read_cmd_full,
